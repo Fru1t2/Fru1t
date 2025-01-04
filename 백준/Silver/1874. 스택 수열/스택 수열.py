@@ -3,7 +3,7 @@ import sys
 number = int(sys.stdin.readline())
 stack = []
 start = 1
-output = [] 
+output = []
 is_possible = True
 
 for _ in range(number):
