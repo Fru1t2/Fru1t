@@ -25,14 +25,14 @@ while queue:
 
     if next_event <= W:
         if dp[next_event][n] > dp[m][n] + calc_distance(accidents[next_event - 1],
-                                                        accidents[m - 1] if m > 0 else first_police):
+                                                        accidents[m - 1] if m > 0 else first_police) and next_event != n:
             dp[next_event][n] = dp[m][n] + calc_distance(accidents[next_event - 1],
                                                          accidents[m - 1] if m > 0 else first_police)
             trace_list[next_event][n] = (m, n)
             queue.append((next_event, n))
 
         if dp[m][next_event] > dp[m][n] + calc_distance(accidents[next_event - 1],
-                                                        accidents[n - 1] if n > 0 else second_police):
+                                                        accidents[n - 1] if n > 0 else second_police) and next_event != m:
             dp[m][next_event] = dp[m][n] + calc_distance(accidents[next_event - 1],
                                                          accidents[n - 1] if n > 0 else second_police)
             trace_list[m][next_event] = (m, n)
