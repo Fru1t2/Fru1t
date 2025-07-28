@@ -1,0 +1,42 @@
+import sys
+
+def find(num : int):
+    root = num
+    while union_find_set[root] != root:
+        root = union_find_set[root]
+
+    while num != root:
+        parent = union_find_set[num]
+        union_find_set[num] = root
+        num = parent
+    return root
+
+def union(num_a : int, num_b : int):
+    head_num_a = find(num_a)
+    head_num_b = find(num_b)
+    if head_num_a == head_num_b:
+        return
+    if head_num_a > head_num_b:
+        union_find_set[head_num_a] = head_num_b
+    else:
+        union_find_set[head_num_b] = head_num_a
+    return
+
+n, m = map(int, sys.stdin.readline().split())
+union_find_set = [i for i in range(n)]
+cycle = 0
+is_cycle = False
+for _ in range(m):
+    cycle += 1
+    a, b = map(int, sys.stdin.readline().split())
+    if find(a) == find(b):
+        print(cycle)
+        is_cycle = True
+        break
+    else:
+        union(a, b)
+
+if not is_cycle:
+    print(0)
+
+
