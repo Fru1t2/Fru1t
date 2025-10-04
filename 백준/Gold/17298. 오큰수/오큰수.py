@@ -1,17 +1,18 @@
 import sys
 
-number = int(sys.stdin.readline())
-stack = []
-answer = []
+n = int(sys.stdin.readline())
 alist = list(map(int, sys.stdin.readline().split()))
-for i in range(len(alist)):
-    while stack and stack[-1][0] < alist[i]:
-        answer.append((alist[i],stack.pop()[1]))
-    stack.append((alist[i], i))
+stack = []
+ans = [-1] * n
 
-for remainder in stack:
-    answer.append((-1, remainder[1]))
+for i in range(n):
+    if stack:
+        while stack:
+            if stack[-1][1] < alist[i]:
+                ans[stack[-1][0]] = alist[i]
+                stack.pop()
+            else:
+                break
+    stack.append((i, alist[i]))
 
-answer.sort(key=lambda x : x[1])
-result = " ".join(str(a) for a,b in answer)
-print(result)
+print(*ans, sep=' ')
